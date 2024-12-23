@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
-SRCS = main.c parser.c
+SRCS = main.c utils.c error_handler.c parser.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

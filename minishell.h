@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2024/12/23 16:43:57 by rjaada           ###   ########.fr       */
+/*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
+/*   Updated: 2024/12/23 16:44:02 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int	main(void)
-{
-	char	*input;
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
 
-	while (1)
-	{
-		input = readline("Minishell> ");
-		if (input == NULL)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (input && *input)
-			add_history(input);
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break ;
-		}
-		tokenization_input(input);
-		free(input);
-	}
-	return (0);
-}
+int		ft_strcmp(const char *s1, const char *s2);
+void	tokenization_input(char *input);
+int		error_input(char quote);
+
+#endif

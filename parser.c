@@ -5,30 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 16:24:45 by rjaada            #+#    #+#             */
-/*   Updated: 2024/11/18 17:47:25 by rjaada           ###   ########.fr       */
+/*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
+/*   Updated: 2024/12/23 16:44:04 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-char	**split_input(char *input)
+void	tokenization_input(char *input)
 {
 	int		i;
-	char	**tokens;
-	char	*token;
+	char	*token_start;
+	char	quote;
 
+	token_start = NULL;
 	i = 0;
-	tokens = malloc(1024 * sizeof(char *));
-	token = strtok(input, " ");
-	while (token)
+	while (input[i])
 	{
-		tokens[i++] = token;
-		token = strtok(NULL, " ");
+		if (input[i] == ' ')
+		{
+			i++;
+			continue ;
+		}
+		if (input[i] == '\'' || input[i] == '\"')
+		{
+			quote = input[i];
+			token_start = &input[++i];
+			while (input[i] && input[i] != quote)
+				i++;
+			if (input[i] != quote)
+			{
+				error_input(quote);
+				return ;
+			}
+			input[i++] = '\0';
+			printf("Token: %s\n", token_start);
+			continue ;
+		}
+		token_start = &input[i];
+		while (input[i] && input[i] != ' ')
+			i++;
+		if (input[i])
+			input[i++] = '\0';
+		printf("Token: %s\n", token_start);
 	}
-	tokens[i] = NULL;
-	return (tokens);
 }

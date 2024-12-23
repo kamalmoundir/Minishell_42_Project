@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 16:24:38 by rjaada            #+#    #+#             */
-/*   Updated: 2024/11/18 17:47:27 by rjaada           ###   ########.fr       */
+/*   Created: 2024/12/16 17:08:37 by rjaada            #+#    #+#             */
+/*   Updated: 2024/12/23 16:44:08 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "minishell.h"
 
-char	**split_input(char *input);
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
