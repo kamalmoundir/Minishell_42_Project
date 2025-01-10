@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
-/*   Updated: 2024/12/23 16:44:04 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/10 17:10:32 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	tokenization_input(char *input)
 	int		i;
 	char	*token_start;
 	char	quote;
+	char	*expanded;
 
 	token_start = NULL;
 	i = 0;
@@ -27,6 +28,15 @@ void	tokenization_input(char *input)
 		if (input[i] == ' ')
 		{
 			i++;
+			continue ;
+		}
+		if (input[i] == '$')
+		{
+			token_start = &input[i];
+			expanded = expand_variable(token_start);
+			printf("Expanded Variable: %s\n", expanded);
+			free(expanded);
+			i += ft_strlen(token_start);
 			continue ;
 		}
 		if (input[i] == '\'' || input[i] == '\"')
@@ -51,4 +61,21 @@ void	tokenization_input(char *input)
 			input[i++] = '\0';
 		printf("Token: %s\n", token_start);
 	}
+}
+char	*expand_variable(const char *token)
+{
+	char	*var_name;
+	char	*value;
+
+	if (token[0] == '$')
+	{
+		var_name = ft_strdup(token + 1);
+		value = getenv(var_name);
+		free(var_name);
+		if (value)
+			return (ft_strdup(value));
+		else
+			return (ft_strdup(""));
+	}
+	return (ft_strdup(token));
 }
