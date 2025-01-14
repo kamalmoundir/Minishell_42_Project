@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/10 17:09:15 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/14 16:04:33 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -30,5 +31,8 @@ char	*expand_variable(const char *token);
 
 // error handling
 int		error_input(char quote);
+
+// main
+void	handle_sigint(int sig);
 
 #endif

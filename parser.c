@@ -6,13 +6,11 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/10 17:10:32 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/14 16:05:56 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <string.h>
 
 void	tokenization_input(char *input)
 {
@@ -62,6 +60,7 @@ void	tokenization_input(char *input)
 		printf("Token: %s\n", token_start);
 	}
 }
+
 char	*expand_variable(const char *token)
 {
 	char	*var_name;
