@@ -2,18 +2,38 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
-SRCS = main.c utils.c error_handler.c parser.c
-OBJS = $(SRCS:.c=.o)
+LIBFT = libraries/libft/libft.a
+
+SRCS = main.c utils.c error_handler.c parser.c \
+		builtins/echo.c 
+
+SRC_DIR = src/
+
+SRC = $(addprefix $(SRC_DIR), $(SRCS))
+INCLUDE = -I./include/
+OBJS = $(SRC:.c=.o) 
+
+RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(INCLUDE) $(LIBFT)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+
+$(LIBFT):
+	@make -C libraries/libft/
 
 clean:
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
+	@make clean -C libraries/libft/
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
+	@make fclean -C libraries/libft/
 
 re: fclean all
+
+.PHONY: all clean fclean re

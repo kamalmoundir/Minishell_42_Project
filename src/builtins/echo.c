@@ -6,11 +6,11 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:28:03 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/14 11:14:33 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:26:56 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "minishell.h"
 
 int	echo(int ac, char **av, int fd)
 {
@@ -39,7 +39,7 @@ int	echo(int ac, char **av, int fd)
 	}
 	return (0);
 }
-int	main(int ac, char **av)
+/*int	main(int ac, char **av)
 {
 	
 	if (ac >= 1)
@@ -48,4 +48,4 @@ int	main(int ac, char **av)
 	}
 	else ft_putchar_fd('\n', 1);
 	return (0);
-}
+}*/
