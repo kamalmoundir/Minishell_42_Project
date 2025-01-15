@@ -5,7 +5,7 @@ NAME = minishell
 LIBFT = libraries/libft/libft.a
 
 SRCS = main.c utils.c error_handler.c parser.c \
-		builtins/echo.c 
+		builtins/echo.c builtins/pwd.c 
 
 SRC_DIR = src/
 

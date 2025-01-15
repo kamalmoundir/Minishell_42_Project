@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/14 17:26:42 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:07 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 # define MINISHELL_H
 
 # include "../libraries/libft/libft.h"
+# include "builtins.h"
+# include <errno.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+
+extern char ** g_env;
 
 // utils
 int		ft_strcmp(const char *s1, const char *s2);
@@ -35,5 +40,6 @@ int		error_input(char quote);
 
 // builtins
 int		echo(int ac, char **av, int fd);
+int		pwd(int number_arg);
 
 #endif
