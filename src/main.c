@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/15 15:42:07 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/15 16:25:03 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	main(void)
 	{
 		input = readline("Minishell> ");
 		if (input == NULL)
-		{
-			printf("exit\n");
 			break ;
-		}
 		if (input && *input)
 			add_history(input);
 		if (ft_strcmp(input, "exit") == 0)
