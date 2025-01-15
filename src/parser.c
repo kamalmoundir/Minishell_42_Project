@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/14 16:05:56 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:49:36 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ void	tokenization_input(char *input)
 	{
 		if (input[i] == ' ')
 		{
+			i++;
+			continue ;
+		}
+		if (is_special_char(input[i]))
+		{
+			if (input[i] == '>' && input[i + 1] == '>')
+			{
+				printf("token: >>\n");
+				i += 2;
+				continue ;
+			}
+			printf("token: %c\n", input[i]);
 			i++;
 			continue ;
 		}

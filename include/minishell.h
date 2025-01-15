@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:07 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:36:53 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "../libraries/libft/libft.h"
-# include "builtins.h"
 # include <errno.h>
 # include <limits.h>
 # include <readline/history.h>
@@ -24,22 +23,24 @@
 # include <stdlib.h>
 # include <string.h>
 
-extern char ** g_env;
+extern char	**g_env;
 
 // utils
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *str);
+int			is_special_char(char c);
 
 // parser
-void	tokenization_input(char *input);
-char	*expand_variable(const char *token);
+void		tokenization_input(char *input);
+char		*expand_variable(const char *token);
 
 // error handling
-int		error_input(char quote);
+int			error_input(char quote);
 
 // builtins
-int		echo(int ac, char **av, int fd);
-int		pwd(int number_arg);
+int			echo(int ac, char **av, int fd);
+int			pwd(int number_arg);
+
+// signal handle
+void		handle_sigint(int sig);
+void		handle_sigquit(int sig);
 
 #endif
