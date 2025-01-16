@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/16 13:24:43 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:22:31 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 
 extern char	**g_env;
 
-//structs
-typedef
+//struct
 
 
 
