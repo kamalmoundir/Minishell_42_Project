@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/17 13:02:56 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:42:38 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 // utils
 int			is_special_char(char c);
 void		checker_input(char *input, int *i);
+int is_exit(char *input);
 
 // tokenization
 void		tokenization_input(char *input);

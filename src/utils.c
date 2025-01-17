@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:08:37 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/17 12:41:48 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/17 13:47:10 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	checker_input(char *input, int *i)
 		}
 		break ;
 	}
+}
+
+int is_exit(char *input)
+{	
+	char *str;
+	
+	str= ft_strtrim(input, " ");
+	if (ft_strcmp(str, "exit") == 0)
+		return (free(str),1);
+	return (free(str), 0);
 }
