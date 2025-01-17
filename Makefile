@@ -1,33 +1,35 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -fPIE
+
 NAME = minishell
 
 LIBFT = libraries/libft/libft.a
+SRC_DIR = src/
+OBJ_DIR = obj/
+INCLUDE = -I./include/
 
 SRCS = main.c utils.c error_handler.c tokenization.c handle_signals.c \
 		builtins/echo.c builtins/pwd.c 
 
-SRC_DIR = src/
-
 SRC = $(addprefix $(SRC_DIR), $(SRCS))
-INCLUDE = -I./include/
-OBJS = $(SRC:.c=.o) 
+OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-RM = rm -f
+RM = rm -rf
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(INCLUDE) $(LIBFT)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(LIBFT):
 	@make -C libraries/libft/
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
 	@make clean -C libraries/libft/
 
 fclean: clean
