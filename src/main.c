@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/17 13:05:28 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:47:21 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 			break ;
 		if (input && *input)
 			add_history(input);
-		if (ft_strcmp(input, "exit") == 0)
+		if (is_exit(input) == 1)
 		{
 			free(input);
 			break ;
@@ -34,7 +34,7 @@ int	main(void)
 		tokenization_input(input);
 		free(input);
 	}
-	return (0);
+	return (0);	
 }
 
 /*
@@ -66,7 +66,7 @@ int	main(void)
 	int	file;
 
 	int i=0;
-	file = open("mapa/test.ber", O_RDONLY);
+	file = open("file.txt", O_RDONLY);
 	if (file < 0)
 	{
 		perror("Error opening file");
