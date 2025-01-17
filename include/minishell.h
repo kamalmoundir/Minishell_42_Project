@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/17 12:38:13 by kmoundir         ###   ########.fr       */
-=======
-/*   Updated: 2025/01/17 12:41:58 by rjaada           ###   ########.fr       */
->>>>>>> refs/remotes/origin/main
+/*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
+/*   Updated: 2025/01/17 13:02:56 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
