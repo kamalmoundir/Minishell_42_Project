@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/16 14:22:31 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:37:49 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,14 @@
 
 extern char	**g_env;
 
-//struct
+//structs
 
 
+
+typedef struct s_data
+{
+    char **env;
+}   t_data;
 
 // utils
 int			is_special_char(char c);

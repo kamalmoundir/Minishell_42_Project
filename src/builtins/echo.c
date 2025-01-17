@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:28:03 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/16 14:12:03 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:38:54 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	echo(int ac, char **av, int fd)
 	int	i;
 
 	i = 0;
+	
 	if (ac == 0)
 		return (ft_putchar_fd('\n', fd), 0);
 	while (av[i] && (is_flag_echo(av[i]) || !ft_strcmp(av[i], "-")))
