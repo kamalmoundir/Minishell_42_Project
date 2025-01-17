@@ -6,13 +6,13 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/17 12:58:41 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:05:28 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
+
 int	main(void)
 {
 	char	*input;
@@ -35,7 +35,7 @@ int	main(void)
 		free(input);
 	}
 	return (0);
-}*/
+}
 
 /*
 int main(void)
@@ -45,7 +45,7 @@ int main(void)
 	return 0;
 }*/
 
-
+/*
 int	main(int ac, char **av)
 {
 	
@@ -57,3 +57,30 @@ int	main(int ac, char **av)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }
+*/
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	int	file;
+
+	int i=0;
+	file = open("mapa/test.ber", O_RDONLY);
+	if (file < 0)
+	{
+		perror("Error opening file");
+		return (1);
+	}
+	char **map=array_map(file);
+	while(map[i])
+	{
+		printf("%s\n",map[i]);
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	close(file);
+	return (0);
+}
+*/
