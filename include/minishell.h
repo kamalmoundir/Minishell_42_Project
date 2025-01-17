@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/17 13:42:38 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:00:46 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libraries/libft/libft.h"
 # include "builtins.h"
 # include <errno.h>
+# include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -26,7 +27,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <fcntl.h>
 
 extern char	**g_env;
 
@@ -40,7 +40,7 @@ typedef struct s_data
 // utils
 int			is_special_char(char c);
 void		checker_input(char *input, int *i);
-int is_exit(char *input);
+int			is_exit(char *input);
 
 // tokenization
 void		tokenization_input(char *input);
