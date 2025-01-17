@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/17 11:30:34 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/17 12:58:41 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+/*
 int	main(void)
 {
 	char	*input;
@@ -35,7 +35,7 @@ int	main(void)
 		free(input);
 	}
 	return (0);
-}
+}*/
 
 /*
 int main(void)
@@ -46,7 +46,7 @@ int main(void)
 }*/
 
 
-/*int	main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	
 	if (ac >= 1)
@@ -56,4 +56,4 @@ int main(void)
 	else
 		ft_putchar_fd('\n', 1);
 	return (0);
-}*/
+}

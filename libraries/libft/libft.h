@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:58:01 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/13 16:24:47 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:33:02 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <unistd.h>
 
 # define SIZE_MAX1 18446744073709551615UL
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 typedef struct s_list
 {
@@ -75,4 +78,15 @@ t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+
+// gnl
+char				*get_next_line(int fd);
+size_t				ft_strlcpy_gnl(char *dst, char *src, size_t size);
+size_t				ft_strlcat_gnl(char *dst, char *src, size_t size);
+char				*ft_substr_gnl(char const *s, unsigned int start,
+						size_t len);
+char				*ft_strjoin_gnl(char *s1, char *s2);
+char				*ft_strchr_gnl(const char *s, int c);
+char				*ft_get_line(int fd, char *line);
+char				**array_map(int fd);
 #endif

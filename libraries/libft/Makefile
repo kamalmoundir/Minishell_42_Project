@@ -32,7 +32,9 @@ SRCS =	ft_isalpha.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c  \
-		ft_strcmp.c
+		ft_strcmp.c \
+		get_next_line.c \
+		get_next_line_utils.c
 
 SRCSB =	ft_lstnew_bonus.c \
 			ft_lstadd_front_bonus.c \
@@ -50,7 +52,7 @@ NAME = libft.a
 LIBC = ar rcs
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIC
 
 all: $(NAME)
 
