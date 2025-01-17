@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/15 23:12:39 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/16 14:37:49 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@
 # include <sys/wait.h>
 
 extern char	**g_env;
+
+//structs
+
+
+
+typedef struct s_data
+{
+    char **env;
+}   t_data;
 
 // utils
 int			is_special_char(char c);

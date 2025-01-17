@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/15 14:49:36 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/17 10:34:25 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	tokenization_input(char *input)
 	char	*token_start;
 	char	quote;
 	char	*expanded;
-
+4
 	token_start = NULL;
 	i = 0;
 	while (input[i])
