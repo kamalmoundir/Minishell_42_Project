@@ -6,7 +6,7 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:08:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/16 14:37:49 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:38:13 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libraries/libft/libft.h"
+# include "builtins.h"
 # include <errno.h>
 # include <limits.h>
 # include <readline/history.h>
@@ -24,6 +25,8 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 extern char	**g_env;
 
@@ -45,10 +48,6 @@ char		*expand_variable(const char *token);
 
 // error handling
 int			error_input(char quote);
-
-// builtins
-int			echo(int ac, char **av, int fd);
-int			pwd(int number_arg);
 
 // signal handle
 void		handle_sigint(int sig);
