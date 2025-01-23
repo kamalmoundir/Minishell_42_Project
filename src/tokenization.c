@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/17 12:42:15 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:02:59 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,12 @@
 
 void	tokenization_input(char *input)
 {
-	int		i;
-	char	*token_start;
+	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		checker_input(input, &i);
-		if (input[i] && input[i] != ' ')
-		{
-			token_start = &input[i];
-			while (input[i] && input[i] != ' ')
-				i++;
-			if (input[i])
-				input[i++] = '\0';
-			printf("Token: %s\n", token_start);
-		}
+		i = process_token(input, i);
 	}
 }
 
@@ -58,11 +48,11 @@ int	handle_variable(char *input, int i)
 	expanded = expand_variable(token_start);
 	if (expanded)
 	{
-		printf("Expanded Variable: %s\n", expanded);
+		printf("Token: %s\n", expanded);
 		free(expanded);
 	}
 	else
-		printf("token: %s (undefined variable)\n", token_start);
+		printf("Token: %s (undefined variable)\n", token_start);
 	return (i + ft_strlen(token_start));
 }
 
@@ -73,13 +63,8 @@ int	handle_quotes(char *input, int i)
 
 	quote = input[i];
 	token_start = &input[++i];
-	while (input[i] && input[i] != quote)
-		i++;
-	if (input[i] != quote)
-	{
-		error_input(quote);
+	if (!process_quote_content(input, &i, quote))
 		return (i);
-	}
 	input[i++] = '\0';
 	printf("Token: %s\n", token_start);
 	return (i);
@@ -93,6 +78,8 @@ char	*expand_variable(const char *token)
 	if (token[0] == '$')
 	{
 		var_name = ft_strdup(token + 1);
+		if (!var_name)
+			return (NULL);
 		value = getenv(var_name);
 		free(var_name);
 		if (value)

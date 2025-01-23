@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/17 14:00:46 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/23 14:55:44 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ typedef struct s_data
 // utils
 int			is_special_char(char c);
 void		checker_input(char *input, int *i);
-int			is_exit(char *input);
+int			process_quoted_string(char *input, int i);
+int			process_token(char *input, int i);
+int			process_quote_content(char *input, int *i, char quote);
 
 // tokenization
 void		tokenization_input(char *input);
@@ -51,6 +53,7 @@ char		*expand_variable(const char *token);
 
 // error handling
 int			error_input(char quote);
+int			is_exit(char *input);
 
 // signal handle
 void		handle_sigint(int sig);
