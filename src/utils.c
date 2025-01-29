@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:08:37 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/23 15:04:35 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/28 14:28:46 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	checker_input(char *input, int *i)
 		break ;
 	}
 }
-
+/*
 int	process_quoted_string(char *input, int i)
 {
 	char	quote;
@@ -120,3 +120,4 @@ int	process_quoted_string(char *input, int i)
 	}
 	return (i + 1);
 }
+*/

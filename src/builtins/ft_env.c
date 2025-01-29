@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signals.c                                   :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 15:25:10 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/20 13:26:29 by kmoundir         ###   ########.fr       */
+/*   Created: 2025/01/15 14:09:37 by kmoundir          #+#    #+#             */
+/*   Updated: 2025/01/28 14:14:01 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_sigint(int sig)
+// i should be crerate struct shell with env or use g_env
+//and add in struct shell fd_in and fd_out  to use it in ft_putstr_fd
+int ft_env(char **arg, int fd)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	ft_putstr_fd("  ", 1);
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
+    int i;
 
-void	handle_sigquit(int sig)
-{
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("  ", 0);
-	rl_redisplay();
-}
-
-void signal_handler()
-{
-    signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+    i = 0;
+    if(arg == NULL)
+    {
+        return (0);   
+    }
+    while(arg[i])
+    {
+        ft_putstr_fd(arg[i], fd);
+        i++;
+    }
+    return (1);    
 }

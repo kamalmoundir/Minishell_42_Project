@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:06:21 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/23 15:02:59 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:13:06 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void	tokenization_input(char *input)
 	{
 		i = process_token(input, i);
 	}
+}
+
+//convert tokens to matrice of tokens
+char **array_tokens(char *input)
+{
+	char **array;
+	if(input == NULL)
+		return NULL;
+	array = ft_split(input, ' ');
+	if(array == NULL)
+		return NULL;
+	return array;
 }
 
 int	handle_redirection(char *input, int i)
