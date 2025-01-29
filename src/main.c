@@ -6,19 +6,19 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/17 13:47:21 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:46:42 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+/*
 int	main(void)
 {
 	char	*input;
 
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+	print_banner();
+	signal_handler();
 	while (1)
 	{
 		input = readline("Minishell> ");
@@ -35,16 +35,41 @@ int	main(void)
 		free(input);
 	}
 	return (0);	
+}*/
+int main(int ac, char **av)	
+{
+	
+	(void)ac;
+	//ft_env(env);
+	//printf("%s", av[1]);
+	ft_cd(av[1]);
+	printf("%d\n", ft_cd(av[1]));
+	return 0;
 }
 
-/*
-int main(void)
+/*int main(int ac, char **av)	
 {
-	pwd(0);
-
+	
+	(void)ac;
+	//ft_env(env);
+	//printf("%s", av[1]);
+	//ft_cd(av[1]);
+	char *path = av[1];
+	printf("%s\n", path);
+	chdir(path);
 	return 0;
-}*/
-
+}
+*/
+/*
+int main(int ac, char **av, char **env)	
+{
+	
+	(void)ac;
+	(void)av;
+	ft_env(env);
+	return 0;
+}
+*/
 /*
 int	main(int ac, char **av)
 {

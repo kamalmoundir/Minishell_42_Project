@@ -9,7 +9,8 @@ OBJ_DIR = obj/
 INCLUDE = -I./include/
 
 SRCS = main.c utils.c error_handler.c tokenization.c handle_signals.c \
-		builtins/echo.c builtins/pwd.c 
+		builtins/ft_echo.c builtins/ft_pwd.c builtins/ft_env.c builtins/ft_exit.c \
+		builtins/ft_cd.c  printbanner.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRCS))
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
