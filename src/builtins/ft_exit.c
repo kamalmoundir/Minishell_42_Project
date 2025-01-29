@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:20:57 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 15:49:02 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/29 16:38:43 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 int	is_exit(char *input)
 {
-	char *str;
+	char	*str;
 
 	str = ft_strtrim(input, " ");
 	if (ft_strcmp(str, "exit") == 0)

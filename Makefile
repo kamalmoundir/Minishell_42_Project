@@ -4,6 +4,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
+# Colors
+GREEN = \033[0;92m
+BLUE = \033[0;94m
+CYAN = \033[0;96m
+YELLOW = \033[0;93m
+RESET = \033[0m
+
 # Directories
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -43,22 +50,30 @@ INC = -I$(INC_DIR) -I$(LIBFT_DIR)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	@echo "$(BLUE)🔨 Building minishell...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	@echo "$(GREEN)✨ Minishell is ready!$(RESET)"
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	@echo "$(YELLOW)📚 Building libft...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR) --silent
+	@echo "$(GREEN)✓ Libft ready$(RESET)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-	@make clean -C $(LIBFT_DIR)
-	$(RM) -r $(OBJ_DIR)
+	@echo "$(YELLOW)🧹 Cleaning objects...$(RESET)"
+	@$(MAKE) clean -C $(LIBFT_DIR) --silent
+	@$(RM) -r $(OBJ_DIR)
+	@echo "$(GREEN)✓ Objects cleaned$(RESET)"
 
 fclean: clean
-	@make fclean -C $(LIBFT_DIR)
-	$(RM) $(NAME)
+	@echo "$(YELLOW)🗑️  Deep cleaning...$(RESET)"
+	@$(MAKE) fclean -C $(LIBFT_DIR) --silent
+	@$(RM) $(NAME)
+	@echo "$(GREEN)✨ All clean!$(RESET)"
 
 re: fclean all
 

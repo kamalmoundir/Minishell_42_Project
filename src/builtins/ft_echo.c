@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:28:03 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/16 14:38:54 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:38:23 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_flag_echo(char *str)
+int	is_flag_echo(char *str)
 {
-	int i ;
-	
+	int	i;
+
 	i = 0;
 	if (str[0] == '-' && str[1] == 'n')
 	{
@@ -33,7 +33,6 @@ int	echo(int ac, char **av, int fd)
 	int	i;
 
 	i = 0;
-	
 	if (ac == 0)
 		return (ft_putchar_fd('\n', fd), 0);
 	while (av[i] && (is_flag_echo(av[i]) || !ft_strcmp(av[i], "-")))
@@ -49,7 +48,6 @@ int	echo(int ac, char **av, int fd)
 		ft_putstr_fd(av[i], fd);
 	if (!is_flag_echo(av[0]))
 		ft_putchar_fd('\n', fd);
-
 	return (0);
 }
 /*
