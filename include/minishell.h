@@ -72,7 +72,9 @@ typedef struct s_data
 // utils
 int			is_special_char(char c);
 void		checker_input(char *input, int *i);
-int			is_exit(char *input);
+int			process_quoted_string(char *input, int i);
+int			process_token(char *input, int i);
+int			process_quote_content(char *input, int *i, char quote);
 
 // tokenization
 void		tokenization_input(char *input);
@@ -83,6 +85,7 @@ char		*expand_variable(const char *token);
 
 // error handling
 int			error_input(char quote);
+int			is_exit(char *input);
 
 // signal handle
 void		handle_sigint(int sig);
