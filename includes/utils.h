@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 14:20:57 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 15:49:02 by rjaada           ###   ########.fr       */
+/*   Created: 2025/01/29 15:15:02 by rjaada            #+#    #+#             */
+/*   Updated: 2025/01/29 15:15:08 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-/*
-** check if the input is exit
-//to do      i have to ignore the spaces caracters after exit word
+# include "minishell.h"
 
-*/
-int	is_exit(char *input)
-{
-	char *str;
+/* Error handling */
+void	*error_malloc(void);
+void	print_error(char *msg);
 
-	str = ft_strtrim(input, " ");
-	if (ft_strcmp(str, "exit") == 0)
-		return (free(str), 1);
-	return (free(str), 0);
-}
+/* String utils */
+char	*str_join_char(char *str, char c);
+char	*str_join_free(char *s1, char *s2);
+
+#endif

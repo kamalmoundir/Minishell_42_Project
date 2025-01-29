@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 12:37:02 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:29:11 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
+
 # define RESET "\033[0m"
 # define BLACK "\033[30m"              /* Black */
 # define RED "\033[31m"                /* Red */
@@ -46,53 +49,52 @@
 # define BOLDCYAN "\033[1m\033[36m"    /* Bold Cyan */
 # define BOLDWHITE "\033[1m\033[37m"   /* Bold White */
 
-extern char	**g_env;
+extern int			g_exit_status;
 
-// structs
+/* Structs */
 
 typedef struct s_cmd
 {
-	char	*cmd;
-	char	**args;
-	char	*input;
-	char	*output;
-}			t_cmd;
+	char				*cmd;
+	char				**args;
+	char				*input;
+	char				*output;
+}						t_cmd;
 
 typedef struct s_data
 {
-	char *input;
-	char **tokens;
-	char **env_vars;
-	char *old_pwd;
-	char *pwd;
-	
-	t_cmd	*cmd;	
-}			t_data;
+	char				*input;
+	char				**tokens;
+	char				**env_vars;
+	char				*old_pwd;
+	char				*pwd;
 
-// utils
-int			is_special_char(char c);
-void		checker_input(char *input, int *i);
-int			process_quoted_string(char *input, int i);
-int			process_token(char *input, int i);
-int			process_quote_content(char *input, int *i, char quote);
+	t_cmd				*cmd;
+}						t_data;
 
-// tokenization
-void		tokenization_input(char *input);
-int			handle_redirection(char *input, int i);
-int			handle_variable(char *input, int i);
-int			handle_quotes(char *input, int i);
-char		*expand_variable(const char *token);
+/* Forward declarations */
+typedef struct s_token	t_token;
 
-// error handling
-int			error_input(char quote);
-int			is_exit(char *input);
+/* Signal handling */
+void					handle_sigint(int sig);
+void					handle_sigquit(int sig);
 
-// signal handle
-void		handle_sigint(int sig);
-void		handle_sigquit(int sig);
-void		signal_handler();
+/* String utils */
+char					*str_join_char(char *str, char c);
+char					*str_join_free(char *s1, char *s2);
+int						str_is_empty(char *str);
+void					str_free_array(char **array);
 
-//ptint banner
-void		print_banner(void);
+/* Error utils */
+void					*error_malloc(void);
+void					print_error(char *msg);
+
+/* Memory utils */
+void					*safe_malloc(size_t size);
+void					safe_free(void *ptr);
+void					safe_free_array(char **array);
+
+/* Print banner */
+void					print_banner(void);
 
 #endif

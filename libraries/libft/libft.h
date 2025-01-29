@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:58:01 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/17 12:33:02 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:48:25 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int					ft_atoi(const char *nptr);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
+int					ft_isspace(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);

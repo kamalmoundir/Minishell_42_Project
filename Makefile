@@ -1,41 +1,64 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fPIE
-
 NAME = minishell
 
-LIBFT = libraries/libft/libft.a
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
+
+# Directories
 SRC_DIR = src/
 OBJ_DIR = obj/
-INCLUDE = -I./include/
+INC_DIR = includes/
+LIBFT_DIR = libraries/libft/
 
-SRCS = main.c utils.c error_handler.c tokenization.c handle_signals.c \
-		builtins/ft_echo.c builtins/ft_pwd.c builtins/ft_env.c builtins/ft_exit.c \
-		builtins/ft_cd.c  printbanner.c
+# Source files
+SRC_FILES = main.c \
+		lexer/lexer_init.c \
+		lexer/lexer_token.c \
+		lexer/lexer_word.c \
+		lexer/lexer_utils.c \
+		lexer/lexer_expand.c \
+		expander/expander.c \
+		parser/parser.c \
+		parser/parser_utils.c \
+		signals/signals.c \
+		utils/utils.c \
+		utils/utils_mem.c \
+		utils/printbanner.c \
+		builtins/ft_echo.c \
+		builtins/ft_pwd.c \
+		builtins/ft_env.c \
+		builtins/ft_exit.c \
+		builtins/ft_cd.c
 
-SRC = $(addprefix $(SRC_DIR), $(SRCS))
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJS = $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-RM = rm -rf
+# Libraries
+LIBFT = $(LIBFT_DIR)libft.a
+LIBS = -L$(LIBFT_DIR) -lft -lreadline
+
+# Includes
+INC = -I$(INC_DIR) -I$(LIBFT_DIR)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(INCLUDE) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-
-$(LIBFT):
-	@make -C libraries/libft/
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ_DIR)
-	@make clean -C libraries/libft/
+	@make clean -C $(LIBFT_DIR)
+	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
+	@make fclean -C $(LIBFT_DIR)
 	$(RM) $(NAME)
-	@make fclean -C libraries/libft/
 
 re: fclean all
 

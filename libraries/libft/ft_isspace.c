@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 18:20:16 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/23 15:05:26 by rjaada           ###   ########.fr       */
+/*   Created: 2025/01/28 11:58:15 by rjaada            #+#    #+#             */
+/*   Updated: 2025/01/28 11:58:35 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	error_input(char quote)
+int	ft_isspace(int c)
 {
-	printf("Erorr: Unmatched %c\n", quote);
-	return (-1);
-}
-
-int	is_exit(char *input)
-{
-	char	*str;
-
-	str = ft_strtrim(input, " ");
-	if (ft_strcmp(str, "exit") == 0)
-		return (free(str), 1);
-	return (free(str), 0);
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r');
 }
