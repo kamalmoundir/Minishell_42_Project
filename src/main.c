@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/29 15:50:56 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/01/30 13:07:14 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,14 @@ int	main(void)
 	}
 	return (0);
 }*/
-/*int main(int ac, char **av)
+
+/*extern char **environ;
+int main(int ac, char **av)
 {
 	(void)ac;
 	//ft_env(env);
 	//printf("%s", av[1]);
+	environ = av;
 	ft_cd(av[1]);
 	printf("%d\n", ft_cd(av[1]));
 	return (0);
@@ -186,3 +189,46 @@ int	main(void)
 	return (0);
 }
 */
+/*
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void    ft_unset(char *var, char **env);
+
+void print_env(char **env)
+{
+    int i = 0;
+    while (env[i])
+    {
+        printf("%s\n", env[i]);
+        i++;
+    }
+    printf("-----------\n");
+}
+/*
+int main()
+{
+    // Simulating environment variables
+    char *env[] = {
+        strdup("USER=kamal"),
+        strdup("PATH=/usr/bin:/bin"),
+        strdup("SHELL=/bin/bash"),
+        strdup("HOME=/home/kamal"),
+        NULL
+    };
+
+    printf("Before unset:\n");
+    print_env(env);
+
+    ft_unset("PATH", env);
+
+    printf("After unset:\n");
+    print_env(env);
+
+     //Free allocated memory (important to prevent leaks)
+    for (int i = 0; env[i]; i++)
+       free(env[i]);
+
+    return 0;
+}*/
