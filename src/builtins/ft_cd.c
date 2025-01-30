@@ -6,14 +6,14 @@
 /*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:50:37 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 14:25:38 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:37:38 by kmoundir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 /*
 //todo
-we can take different inputs in t future
+we can take different inputs in theman unset future
 we  use  getcwd, chdir, and make our (setenv) function
 */
 
