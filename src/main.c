@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/30 13:07:14 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:15:58 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,17 @@
 
 int			g_exit_status;
 
-static void	token_print_wrapper(t_token *token)
-{
-	ft_putstr_fd("Token: ", 1);
-	if (token->type == TOKEN_WORD)
-		ft_putstr_fd("WORD", 1);
-	else if (token->type == TOKEN_PIPE)
-		ft_putstr_fd("PIPE", 1);
-	else if (token->type == TOKEN_REDIR_IN)
-		ft_putstr_fd("REDIR_IN", 1);
-	else if (token->type == TOKEN_REDIR_OUT)
-		ft_putstr_fd("REDIR_OUT", 1);
-	else if (token->type == TOKEN_HEREDOC)
-		ft_putstr_fd("HEREDOC", 1);
-	else if (token->type == TOKEN_APPEND)
-		ft_putstr_fd("APPEND", 1);
-	else if (token->type == TOKEN_EOF)
-		ft_putstr_fd("EOF", 1);
-	if (token->value)
-	{
-		ft_putstr_fd(" -> [", 1);
-		ft_putstr_fd(token->value, 1);
-		ft_putstr_fd("]", 1);
-	}
-	ft_putstr_fd("\n", 1);
-}
-
 static int	process_input(char *input)
 {
-	t_lexer	*lexer;
-	t_token	*token;
+	t_list	*tokens;
 
 	if (ft_strcmp(input, "exit") == 0)
 		return (1);
-	lexer = lexer_init(input);
-	if (!lexer)
+	tokens = tokenize_input(input);
+	if (!tokens)
 		return (0);
-	while (1)
-	{
-		token = lexer_get_next_token(lexer);
-		if (!token)
-			break ;
-		token_print_wrapper(token);
-		if (token->type == TOKEN_EOF)
-		{
-			token_free(token);
-			break ;
-		}
-		token_free(token);
-	}
-	lexer_free(lexer);
+	print_token_list(tokens);
+	ft_lstclear(&tokens, (void *)token_free);
 	return (0);
 }
 
@@ -118,9 +79,8 @@ int	main(void)
 	}
 	return (0);
 }*/
-
 /*extern char **environ;
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	(void)ac;
 	//ft_env(env);
@@ -194,41 +154,43 @@ int	main(void)
 #include <stdlib.h>
 #include <string.h>
 
-void    ft_unset(char *var, char **env);
+void		ft_unset(char *var, char **env);
 
-void print_env(char **env)
+void	print_env(char **env)
 {
-    int i = 0;
-    while (env[i])
-    {
-        printf("%s\n", env[i]);
-        i++;
-    }
-    printf("-----------\n");
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+	printf("-----------\n");
 }
-/*
-int main()
+*/
+/*int main()
 {
-    // Simulating environment variables
-    char *env[] = {
-        strdup("USER=kamal"),
-        strdup("PATH=/usr/bin:/bin"),
-        strdup("SHELL=/bin/bash"),
-        strdup("HOME=/home/kamal"),
-        NULL
-    };
+	// Simulating environment variables
+	char *env[] = {
+		strdup("USER=kamal"),
+		strdup("PATH=/usr/bin:/bin"),
+		strdup("SHELL=/bin/bash"),
+		strdup("HOME=/home/kamal"),
+		NULL
+	};
 
-    printf("Before unset:\n");
-    print_env(env);
+	printf("Before unset:\n");
+	print_env(env);
 
-    ft_unset("PATH", env);
+	ft_unset("PATH", env);
 
-    printf("After unset:\n");
-    print_env(env);
+	printf("After unset:\n");
+	print_env(env);
 
-     //Free allocated memory (important to prevent leaks)
-    for (int i = 0; env[i]; i++)
-       free(env[i]);
+		//Free allocated memory (important to prevent leaks)
+	for (int i = 0; env[i]; i++)
+		free(env[i]);
 
-    return 0;
+	return (0);
 }*/

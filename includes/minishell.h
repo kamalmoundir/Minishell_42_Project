@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 15:29:11 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:12:44 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define BOLDCYAN "\033[1m\033[36m"    /* Bold Cyan */
 # define BOLDWHITE "\033[1m\033[37m"   /* Bold White */
 
-extern int			g_exit_status;
+extern int				g_exit_status;
 
 /* Structs */
 

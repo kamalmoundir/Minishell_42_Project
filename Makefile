@@ -24,6 +24,8 @@ SRC_FILES = main.c \
 		lexer/lexer_word.c \
 		lexer/lexer_utils.c \
 		lexer/lexer_expand.c \
+		lexer/tokenizer.c \
+		lexer/token_print.c \
 		expander/expander.c \
 		parser/parser.c \
 		parser/parser_utils.c \
@@ -57,7 +59,7 @@ $(NAME): $(LIBFT) $(OBJS)
 
 $(LIBFT):
 	@echo "$(YELLOW)📚 Building libft...$(RESET)"
-	@$(MAKE) -C $(LIBFT_DIR) --silent
+	@$(MAKE) bonus -C $(LIBFT_DIR) --silent
 	@echo "$(GREEN)✓ Libft ready$(RESET)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

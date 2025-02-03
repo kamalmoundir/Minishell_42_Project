@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:25:33 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/28 12:35:29 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/03 13:24:02 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_lexer	*lexer_init(char *input)
 	lexer->input = input;
 	lexer->pos = 0;
 	lexer->len = ft_strlen(input);
-	lexer->curr_token = NULL;
+	lexer->tokens = NULL;
 	return (lexer);
 }
 
@@ -30,8 +30,8 @@ void	lexer_free(t_lexer *lexer)
 {
 	if (!lexer)
 		return ;
-	if (lexer->curr_token)
-		token_free(lexer->curr_token);
+	if (lexer->tokens)
+		ft_lstclear(&lexer->tokens, (void *)token_free);
 	free(lexer);
 }
 
