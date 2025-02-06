@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:37 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 16:38:36 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/06 01:11:56 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 // i should be crerate struct shell with env or use g_env
 // and add in struct shell fd_in and fd_out  to use it in ft_putstr_fd
-int	ft_env(char **arg, int fd)
+int	ft_env(char **arg, int fd, char **env)
 {
 	int i;
 
 	i = 0;
-	if (arg == NULL)
-	{
+	if (!env)
 		return (0);
-	}
-	while (arg[i])
+	while (env[i])
 	{
-		ft_putstr_fd(arg[i], fd);
+		ft_putstr_fd(env[i], fd);
+		ft_putstr_fd("\n", fd);
 		i++;
 	}
+	(void)arg;
 	return (1);
 }

@@ -6,36 +6,56 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/03 13:15:58 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/06 01:27:02 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "lexer.h"
 #include "minishell.h"
 
 int			g_exit_status;
 
-static int	process_input(char *input)
+static int	process_input(char *input, char **env)
 {
 	t_list	*tokens;
+	char	**args;
 
+	if (syntax_error_checker(input))
+	{
+		g_exit_status = 2;
+		return (0);
+	}
 	if (ft_strcmp(input, "exit") == 0)
 		return (1);
 	tokens = tokenize_input(input);
 	if (!tokens)
 		return (0);
-	print_token_list(tokens);
+	/*print_token_debug(tokens);*/
+	if (((t_token *)tokens->content)->type == TOKEN_WORD)
+	{
+		args = create_args_array(tokens);
+		if (args)
+		{
+			if (is_builtin(args[0]))
+				g_exit_status = handle_builtin(tokens, env);
+			else
+				g_exit_status = execute_command(args, env);
+			free_args_array(args);
+		}
+	}
 	ft_lstclear(&tokens, (void *)token_free);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 
+	(void)argc;
+	(void)argv;
 	print_banner();
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+	setup_signal_handlers();
 	g_exit_status = 0;
 	while (1)
 	{
@@ -44,7 +64,7 @@ int	main(void)
 			break ;
 		if (input && *input)
 			add_history(input);
-		if (process_input(input))
+		if (process_input(input, env))
 		{
 			free(input);
 			break ;

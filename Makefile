@@ -26,6 +26,8 @@ SRC_FILES = main.c \
 		lexer/lexer_expand.c \
 		lexer/tokenizer.c \
 		lexer/token_print.c \
+		input_validation/input_validation.c \
+		input_validation/input_validation_utils.c \
 		expander/expander.c \
 		parser/parser.c \
 		parser/parser_utils.c \
@@ -33,12 +35,16 @@ SRC_FILES = main.c \
 		utils/utils.c \
 		utils/utils_mem.c \
 		utils/printbanner.c \
+		utils/token_utils.c \
 		builtins/ft_echo.c \
 		builtins/ft_pwd.c \
 		builtins/ft_env.c \
 		builtins/ft_exit.c \
 		builtins/ft_cd.c \
-		builtins/ft_unset.c
+		builtins/ft_unset.c \
+		builtins/builtin_utils.c \
+		execution/exec_cmd.c \
+        execution/exec_utils.c \
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJS = $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

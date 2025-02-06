@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/02/03 16:12:44 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/06 01:30:18 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,18 @@ typedef struct s_data
 typedef struct s_token	t_token;
 
 /* Signal handling */
-void					handle_sigint(int sig);
-void					handle_sigquit(int sig);
+void					setup_signal_handlers(void);
+void					handle_ctrl_c(int sig_num);
+void					child_ctrl_c(int sig_num);
+
+/* Input validation */
+int						syntax_error_checker(const char *input);
+int						has_unclosed_quotes(const char *input);
+int						has_invalid_redirections(const char *input);
+int						has_misplaced_operators(const char *input);
+int						has_logical_operators(const char *input);
+void					update_quote_counts(char c, int *s_q, int *d_q);
+int						is_invalid_operator(const char **input);
 
 /* String utils */
 char					*str_join_char(char *str, char c);
@@ -96,5 +106,18 @@ void					safe_free_array(char **array);
 
 /* Print banner */
 void					print_banner(void);
+
+/* Builtin execution */
+int						is_builtin(char *cmd);
+int						execute_builtin(char **args, char **env);
+// void					print_token_debug(t_list *list);
+char					**create_args_array(t_list *tokens);
+void					free_args_array(char **args);
+int						handle_builtin(t_list *tokens, char **env);
+
+/* Execution */
+int						execute_command(char **args, char **env);
+void					free_array(char **arr);
+char					*find_command_path(char *cmd, char **env);
 
 #endif
