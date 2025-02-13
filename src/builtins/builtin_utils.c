@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:09:56 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/05 21:27:53 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/13 15:46:22 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_builtin(char *cmd)
 {
 	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") || !ft_strcmp(cmd,
 			"pwd") || !ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "unset")
-		|| !ft_strcmp(cmd, "exit"));
+		|| !ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "export"));
 }
 
 static int	count_args(char **args)
@@ -41,10 +41,12 @@ int	execute_builtin(char **args, char **env)
 	if (!ft_strcmp(args[0], "pwd"))
 		return (pwd(count_args(args) - 1));
 	if (!ft_strcmp(args[0], "env"))
-		return (ft_env(env, 1, env)); // Pass env instead of environ
+		return (ft_env(env, 1, env));
 	if (!ft_strcmp(args[0], "unset") && args[1])
-		ft_unset(args[1], env); // Already using env parameter
+		ft_unset(args[1], env);
 	if (!ft_strcmp(args[0], "exit"))
 		return (is_exit(args[0]));
+	if (!ft_strcmp(args[0], "export"))
+		return (ft_export(args, env));
 	return (1);
 }

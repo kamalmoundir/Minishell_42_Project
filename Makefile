@@ -42,6 +42,8 @@ SRC_FILES = main.c \
 		builtins/ft_exit.c \
 		builtins/ft_cd.c \
 		builtins/ft_unset.c \
+		builtins/ft_export.c \
+		builtins/ft_export_utils.c \
 		builtins/builtin_utils.c \
 		execution/exec_cmd.c \
         execution/exec_utils.c \
