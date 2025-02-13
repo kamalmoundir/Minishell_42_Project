@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:05:50 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/03 16:12:15 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/13 23:45:21 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static t_list	*handle_token_node(t_token *token, t_list **token_list)
 	return (new_node);
 }
 
-t_list	*tokenize_input(char *input)
+t_list	*tokenize_input(char *input, char **env)
 {
 	t_lexer	*lexer;
 	t_list	*token_list;
 	t_token	*current_token;
 
-	lexer = lexer_init(input);
+	lexer = lexer_init(input, env);
 	if (!lexer)
 		return (NULL);
 	token_list = NULL;

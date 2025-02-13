@@ -6,13 +6,13 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:25:33 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/03 13:24:02 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/13 23:43:50 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_lexer	*lexer_init(char *input)
+t_lexer	*lexer_init(char *input, char **env)
 {
 	t_lexer	*lexer;
 
@@ -23,6 +23,7 @@ t_lexer	*lexer_init(char *input)
 	lexer->pos = 0;
 	lexer->len = ft_strlen(input);
 	lexer->tokens = NULL;
+	lexer->env = env;
 	return (lexer);
 }
 

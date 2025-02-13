@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:29:05 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/06 01:27:02 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/13 23:46:12 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ static int	process_input(char *input, char **env)
 	}
 	if (ft_strcmp(input, "exit") == 0)
 		return (1);
-	tokens = tokenize_input(input);
+	tokens = tokenize_input(input, env);
 	if (!tokens)
 		return (0);
-	/*print_token_debug(tokens);*/
 	if (((t_token *)tokens->content)->type == TOKEN_WORD)
 	{
 		args = create_args_array(tokens);

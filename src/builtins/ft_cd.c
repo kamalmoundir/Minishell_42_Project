@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:50:37 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/30 12:20:14 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:44:43 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -36,6 +35,7 @@ static void	update_env(void)
 	}
 	setenv("PWD", cwd, 1);
 }
+
 int	ft_cd(char *path)
 {
 	if (!path)
@@ -50,8 +50,6 @@ int	ft_cd(char *path)
 		ft_putstr_fd("\n", 2);
 		return (1);
 	}
-
 	update_env();
-
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoundir <kmoundir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:22:12 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/30 13:06:23 by kmoundir         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:44:24 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_unset(char *var, char **env)
 		return ;
 	}
 	len = ft_strlen(var);
-    i=0;
+	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], var, len) == 0 && env[i][ft_strlen(var)] == '=')
@@ -38,7 +38,7 @@ void	ft_unset(char *var, char **env)
 				env[i] = env[i + 1];
 				i++;
 			}
-            env[i] = NULL;
+			env[i] = NULL;
 			return ;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:26:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/01/29 16:39:18 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/13 23:45:09 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_token	*handle_quote(t_lexer *lexer, char quote_type)
 	lexer->pos = pos + 1;
 	if (quote_type == '"')
 	{
-		expanded = expand_env_vars(word);
+		expanded = expand_shell_vars(word, lexer->env);
 		free(word);
 		return (token_create(TOKEN_WORD, expanded));
 	}
@@ -98,7 +98,7 @@ t_token	*handle_word(t_lexer *lexer)
 		return (NULL);
 	if (ft_strchr(word, '$'))
 	{
-		expanded = expand_env_vars(word);
+		expanded = expand_shell_vars(word, lexer->env);
 		free(word);
 		return (token_create(TOKEN_WORD, expanded));
 	}
