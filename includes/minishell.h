@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:02:40 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/02/06 01:30:18 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/14 13:17:17 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void					print_banner(void);
 /* Builtin execution */
 int						is_builtin(char *cmd);
 int						execute_builtin(char **args, char **env);
-// void					print_token_debug(t_list *list);
 char					**create_args_array(t_list *tokens);
 void					free_args_array(char **args);
 int						handle_builtin(t_list *tokens, char **env);

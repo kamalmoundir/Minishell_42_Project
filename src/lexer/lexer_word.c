@@ -6,21 +6,20 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:26:22 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/13 23:45:09 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/14 12:58:09 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static char	*get_quoted_content(t_lexer *lexer, char quote_type, int *pos)
+static int	process_quote_content(t_lexer *lexer, char quote_type, int *pos,
+		int *length)
 {
-	int		start;
-	int		len;
-	char	*content;
-	int		escaped;
+	int	escaped;
+	int	start;
 
 	start = *pos;
-	len = 0;
+	*length = 0;
 	escaped = 0;
 	while (*pos < lexer->len)
 	{
@@ -33,16 +32,25 @@ static char	*get_quoted_content(t_lexer *lexer, char quote_type, int *pos)
 		if (!escaped && lexer->input[*pos] == quote_type)
 			break ;
 		escaped = 0;
-		len++;
+		(*length)++;
 		(*pos)++;
 	}
 	if (*pos >= lexer->len)
-		return (NULL);
+		return (-1);
+	return (start);
+}
+
+static char	*fill_quoted_content(t_lexer *lexer, int start, int *pos, int len)
+{
+	char	*content;
+	int		escaped;
+	int		i;
+
 	content = malloc(sizeof(char) * (len + 1));
 	if (!content)
 		return (NULL);
 	escaped = 0;
-	len = 0;
+	i = 0;
 	while (start < *pos)
 	{
 		if (!escaped && lexer->input[start] == '\\')
@@ -51,11 +59,22 @@ static char	*get_quoted_content(t_lexer *lexer, char quote_type, int *pos)
 			start++;
 			continue ;
 		}
-		content[len++] = lexer->input[start++];
+		content[i++] = lexer->input[start++];
 		escaped = 0;
 	}
-	content[len] = '\0';
+	content[i] = '\0';
 	return (content);
+}
+
+static char	*get_quoted_content(t_lexer *lexer, char quote_type, int *pos)
+{
+	int	start;
+	int	len;
+
+	start = process_quote_content(lexer, quote_type, pos, &len);
+	if (start == -1)
+		return (NULL);
+	return (fill_quoted_content(lexer, start, pos, len));
 }
 
 t_token	*handle_quote(t_lexer *lexer, char quote_type)
