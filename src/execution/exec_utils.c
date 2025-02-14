@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 01:23:55 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/06 01:24:06 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/14 13:59:26 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ int	execute_command(char **args, char **env)
 	if (!cmd_path)
 	{
 		exec_error(args[0]);
-		return (127);
+		g_exit_status = 127;
+		return (g_exit_status);
 	}
 	pid = fork();
 	if (pid == 0)
 		child_process(cmd_path, args, env);
 	waitpid(pid, &status, 0);
 	free(cmd_path);
-	return (WEXITSTATUS(status));
+	g_exit_status = WEXITSTATUS(status);
+	return (g_exit_status);
 }

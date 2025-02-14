@@ -24,6 +24,7 @@ SRC_FILES = main.c \
 		lexer/lexer_word.c \
 		lexer/lexer_utils.c \
 		lexer/lexer_expand.c \
+		lexer/lexer_expand_utils.c \
 		lexer/tokenizer.c \
 		lexer/token_print.c \
 		input_validation/input_validation.c \

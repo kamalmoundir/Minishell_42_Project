@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:30 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/13 23:44:06 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/14 14:11:58 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ int					is_operator(char c);
 int					is_word_char(char c);
 char				*expand_env_vars(char *str);
 char				*expand_shell_vars(char *str, char **env);
+char				*join_var_value(char *result, char *value);
+char				*join_chars(char *str, char c);
 
 #endif

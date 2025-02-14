@@ -6,65 +6,51 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:28:41 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/13 23:45:31 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/14 14:09:05 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static char	*join_chars(char *str, char c)
-{
-	char	*temp;
-	char	*result;
-
-	temp = str;
-	result = ft_strjoin(str, (char[]){c, '\0'});
-	free(temp);
-	return (result);
-}
-
 static char	*get_var_name(char *str, int *i)
 {
-	int		start;
-	char	*name;
+	int	start;
 
 	(*i)++;
+	if (str[*i] == '?')
+	{
+		(*i)++;
+		return (ft_strdup("?"));
+	}
 	start = *i;
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 		(*i)++;
-	name = ft_substr(str, start, *i - start);
-	return (name);
+	return (ft_substr(str, start, *i - start));
 }
 
-static char	*join_var_value(char *result, char *var_value)
+static char	*get_shell_var_value(char **env, char *var_name)
 {
-	char	*temp;
-
-	temp = result;
-	if (var_value)
-		result = ft_strjoin(result, var_value);
-	else
-		result = ft_strjoin(result, "");
-	free(temp);
-	return (result);
-}
-
-static char	*get_shell_var_value(char **env, const char *var_name)
-{
-	int		var_index;
+	int		i;
+	int		len;
 	char	*value;
-	char	*eq_pos;
 
-	if (!var_name || !env)
-		return (NULL);
-	var_index = find_env_var(env, var_name);
-	if (var_index < 0)
-		return (NULL);
-	eq_pos = ft_strchr(env[var_index], '=');
-	if (!eq_pos)
-		return (NULL);
-	value = ft_strdup(eq_pos + 1);
-	return (value);
+	if (!var_name)
+		return (ft_strdup(""));
+	if (ft_strcmp(var_name, "?") == 0)
+		return (ft_itoa(g_exit_status));
+	len = ft_strlen(var_name);
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], var_name, len) && env[i][len] == '=')
+		{
+			value = ft_strchr(env[i], '=');
+			if (value)
+				return (ft_strdup(value + 1));
+		}
+		i++;
+	}
+	return (ft_strdup(""));
 }
 
 char	*expand_shell_vars(char *str, char **env)

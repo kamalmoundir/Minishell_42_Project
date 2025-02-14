@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:14:06 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/04 17:33:25 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/14 14:15:03 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	syntax_error_checker(const char *input)
 	}
 	if (has_logical_operators(input))
 	{
-		ft_putstr_fd("Error: Logical operators '&&' and '||' are not supported.\n",
+		ft_putstr_fd("Error: Logical operators '&&' and '||' are not supported.\n ",
 			STDERR_FILENO);
 		return (1);
 	}
