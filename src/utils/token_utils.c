@@ -5,120 +5,82 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 21:50:29 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/06 01:15:18 by rjaada           ###   ########.fr       */
+/*   Created: 2025/02/13 15:45:18 by rjaada            #+#    #+#             */
+/*   Updated: 2025/02/23 19:38:11 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "lexer.h"
 #include "minishell.h"
 
-/*static void	print_token_type(t_token *token)
+static int	count_word_tokens(t_list_token *tokens)
 {
-	if (token->type == TOKEN_WORD)
-		ft_putstr_fd("WORD", 1);
-	else if (token->type == TOKEN_PIPE)
-		ft_putstr_fd("PIPE", 1);
-	else if (token->type == TOKEN_REDIR_IN)
-		ft_putstr_fd("REDIR_IN", 1);
-	else if (token->type == TOKEN_REDIR_OUT)
-		ft_putstr_fd("REDIR_OUT", 1);
-	else if (token->type == TOKEN_HEREDOC)
-		ft_putstr_fd("HEREDOC", 1);
-	else if (token->type == TOKEN_APPEND)
-		ft_putstr_fd("APPEND", 1);
-}*/
-
-/*void	print_token_debug(t_list *list)
-{
-	t_token	*token;
-
-	while (list)
-	{
-		token = (t_token *)list->content;
-		ft_putstr_fd("Token: ", 1);
-		print_token_type(token);
-		if (token->value)
-		{
-			ft_putstr_fd(" -> [", 1);
-			ft_putstr_fd(token->value, 1);
-			ft_putstr_fd("]", 1);
-		}
-		ft_putstr_fd("\n", 1);
-		list = list->next;
-	}
-}*/
-
-static int	count_word_tokens(t_list *tokens)
-{
-	int		count;
-	t_list	*tmp;
+	t_list_token	*current;
+	int				count;
 
 	count = 0;
-	tmp = tokens;
-	while (tmp && ((t_token *)tmp->content)->type == TOKEN_WORD)
+	current = tokens;
+	while (current && current->token->type == TOKEN_WORD)
 	{
 		count++;
-		tmp = tmp->next;
+		current = current->next;
 	}
 	return (count);
 }
 
-static char	**allocate_args_array(int count)
+static void	init_args_array(char ***args, int count)
 {
-	char	**args;
-
-	args = malloc(sizeof(char *) * (count + 1));
-	if (!args)
-		return (NULL);
-	return (args);
+	*args = malloc(sizeof(char *) * (count + 1));
+	if (*args)
+		(*args)[count] = NULL;
 }
 
-char	**create_args_array(t_list *tokens)
+static int	copy_token_values(t_list_token *tokens, char **args, int count)
 {
-	int		count;
+	t_list_token	*current;
+	int				i;
+
+	i = 0;
+	current = tokens;
+	while (i < count)
+	{
+		args[i] = ft_strdup(current->token->value);
+		if (!args[i])
+			return (0);
+		current = current->next;
+		i++;
+	}
+	return (1);
+}
+
+char	**create_args_array(t_list_token *tokens)
+{
 	char	**args;
-	int		i;
-	t_token	*token;
+	int		count;
 
 	count = count_word_tokens(tokens);
-	args = allocate_args_array(count);
+	init_args_array(&args, count);
 	if (!args)
 		return (NULL);
-	i = 0;
-	while (tokens && i < count)
+	if (!copy_token_values(tokens, args, count))
 	{
-		token = (t_token *)tokens->content;
-		args[i] = ft_strdup(token->value);
-		i++;
-		tokens = tokens->next;
+		free_args_array(args, count);
+		return (NULL);
 	}
-	args[i] = NULL;
 	return (args);
 }
 
-void	free_args_array(char **args)
+void	free_args_array(char **args, int count)
 {
-	char	**args_start;
+	int	i;
 
 	if (!args)
 		return ;
-	args_start = args;
-	while (*args_start)
-		free(*args_start++);
+	i = 0;
+	while (i < count)
+	{
+		if (args[i])
+			free(args[i]);
+		i++;
+	}
 	free(args);
-}
-
-int	handle_builtin(t_list *tokens, char **env)
-{
-	char	**args;
-	int		ret;
-
-	args = create_args_array(tokens);
-	ret = 0;
-	if (args && is_builtin(args[0]))
-		ret = execute_builtin(args, env);
-	free_args_array(args);
-	return (ret);
 }

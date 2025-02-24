@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:48:04 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/15 23:37:14 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/23 21:18:28 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,16 @@
 int	pwd(int number_arg)
 {
 	char	*cwd;
-	int		error_num;
 
-	if (number_arg == 0)
+	(void)number_arg;
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 	{
-		cwd = getcwd(NULL, PATH_MAX);
-		if (!cwd)
-		{
-			error_num = errno;
-			ft_putstr_fd("pwd:", 2);
-			ft_putstr_fd(strerror(error_num), 2);
-			ft_putstr_fd("\n", 2);
-		}
-		else
-		{
-			printf("%s\n", cwd);
-			free(cwd);
-		}
+		ft_putstr_fd("pwd: ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+		return (1);
 	}
-	else
-		ft_putstr_fd("Too many arguments\n", 2);
+	ft_putendl_fd(cwd, 1);
+	free(cwd);
 	return (0);
 }

@@ -6,88 +6,99 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:20:00 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/13 15:51:32 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/23 21:18:18 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_valid_identifier(const char *str)
+static char	*get_var_name(const char *str)
 {
-	int	i;
+	int		i;
+	char	*name;
 
-	if (!str || !*str || (!ft_isalpha(*str) && *str != '_'))
-		return (0);
-	i = 1;
+	i = 0;
 	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
 		i++;
-	}
-	return (1);
+	name = ft_substr(str, 0, i);
+	return (name);
 }
 
-static int	update_env_var(char **env, char *arg, int var_index)
+static int	update_env_var(char **env, char *new_var)
 {
+	int		i;
+	char	*var_name;
+	int		var_index;
+	char	*dup;
+
+	var_name = get_var_name(new_var);
+	if (!var_name)
+		return (0);
+	var_index = find_env_var(env, var_name);
+	free(var_name);
 	if (var_index >= 0)
 	{
+		dup = ft_strdup(new_var);
+		if (!dup)
+			return (0);
 		free(env[var_index]);
-		env[var_index] = ft_strdup(arg);
+		env[var_index] = dup;
 	}
 	else
 	{
-		var_index = 0;
-		while (env[var_index])
-			var_index++;
-		env[var_index] = ft_strdup(arg);
-		env[var_index + 1] = NULL;
+		i = 0;
+		while (env[i])
+			i++;
+		env[i] = ft_strdup(new_var);
+		env[i + 1] = NULL;
 	}
 	return (1);
 }
 
-static int	export_variable(char *arg, char **env)
+static int	validate_name(const char *var, int *has_equals)
 {
-	char	*eq_pos;
-	char	*name;
-	int		var_index;
+	int	i;
 
-	if (!is_valid_identifier(arg))
-	{
-		ft_putstr_fd(RED "export: not a valid identifier\n" RESET, 2);
+	i = 0;
+	*has_equals = 0;
+	if (!var || !*var || (!ft_isalpha(*var) && *var != '_'))
 		return (0);
+	while (var[i] && var[i] != '=')
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+			return (0);
+		i++;
 	}
-	eq_pos = ft_strchr(arg, '=');
-	if (!eq_pos)
-		return (1);
-	name = ft_substr(arg, 0, eq_pos - arg);
-	var_index = find_env_var(env, name);
-	free(name);
-	return (update_env_var(env, arg, var_index));
+	if (var[i] == '=')
+		*has_equals = 1;
+	return (1);
 }
 
 int	ft_export(char **args, char **env)
 {
 	int	i;
-	int	status;
+	int	ret;
+	int	has_equals;
 
-	status = 1;
 	if (!args[1])
 	{
-		i = 0;
-		while (env[i])
-		{
-			ft_putstr_fd("declare -x ", 1);
-			ft_putendl_fd(env[i], 1);
-			i++;
-		}
-		return (status);
+		print_sorted_env(env);
+		return (0);
 	}
+	ret = 0;
 	i = 1;
 	while (args[i])
 	{
-		status &= export_variable(args[i], env);
+		if (!validate_name(args[i], &has_equals))
+		{
+			ft_putstr_fd("export: `", 2);
+			ft_putstr_fd(args[i], 2);
+			ft_putendl_fd("': not a valid identifier", 2);
+			ret = 1;
+		}
+		else if (has_equals && !update_env_var(env, args[i]))
+			ret = 1;
 		i++;
 	}
-	return (status);
+	return (ret);
 }

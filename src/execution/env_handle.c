@@ -1,51 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 14:09:37 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/02/23 21:58:49 by rjaada           ###   ########.fr       */
+/*   Created: 2025/02/12 14:15:57 by kmoundir          #+#    #+#             */
+/*   Updated: 2025/02/23 21:06:12 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(char **arg, int fd, char **env)
+char	**create_env_array(char **envp)
+{
+	int		i;
+	char	**array_env;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	array_env = malloc((i + 1) * sizeof(char *));
+	if (!array_env)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		array_env[i] = ft_strdup(envp[i]);
+		if (!array_env[i])
+		{
+			while (--i)
+				free(array_env[i]);
+			free(array_env);
+			return (NULL);
+		}
+		i++;
+	}
+	array_env[i] = NULL;
+	return (array_env);
+}
+
+void	free_env_array(char **env)
 {
 	int	i;
 
 	i = 0;
 	if (!env)
-		return (0);
+		return ;
 	while (env[i])
 	{
-		ft_putstr_fd(env[i], fd);
-		ft_putstr_fd("\n", fd);
+		free(env[i]);
 		i++;
 	}
-	(void)arg;
-	return (1);
-}
-
-int	find_env_var(char **env, const char *name)
-{
-	int	i;
-	int	len;
-
-	if (!env || !name)
-		return (-1);
-	len = 0;
-	while (name[len] && name[len] != '=')
-		len++;
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], name, len) == 0 && (env[i][len] == '='
-			|| env[i][len] == '\0'))
-			return (i);
-		i++;
-	}
-	return (-1);
+	free(env);
 }

@@ -6,48 +6,104 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:20:30 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/13 15:51:25 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/23 00:20:11 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_env_var(char **env, const char *var)
+static char	**dup_env_array(char **env, int size)
 {
-	int	i;
-	int	len;
+	char	**sorted;
+	int		i;
 
-	if (!var || !env)
-		return (-1);
-	len = ft_strlen(var);
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], var, len) == 0 && env[i][len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
+	sorted = malloc(sizeof(char *) * (size + 1));
+	if (!sorted)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		sorted[i] = env[i];
+	sorted[i] = NULL;
+	return (sorted);
 }
 
-char	*create_env_entry(const char *name, const char *value)
+static void	sort_env_array(char **sorted, int size)
 {
-	char	*entry;
-	size_t	len;
+	int		i;
+	int		j;
+	char	*tmp;
 
-	if (!name)
-		return (NULL);
-	len = ft_strlen(name);
-	if (value)
-		len += ft_strlen(value) + 1;
-	entry = (char *)malloc(sizeof(char) * (len + 1));
-	if (!entry)
-		return (NULL);
-	ft_strlcpy(entry, name, len + 1);
-	if (value)
+	i = -1;
+	while (++i < size - 1)
 	{
-		ft_strlcat(entry, "=", len + 1);
-		ft_strlcat(entry, value, len + 1);
+		j = -1;
+		while (++j < size - 1 - i)
+		{
+			if (ft_strcmp(sorted[j], sorted[j + 1]) > 0)
+			{
+				tmp = sorted[j];
+				sorted[j] = sorted[j + 1];
+				sorted[j + 1] = tmp;
+			}
+		}
 	}
-	return (entry);
+}
+
+static void	print_env_var(char *var)
+{
+	int		i;
+	int		found_equals;
+	char	*value;
+
+	ft_putstr_fd("declare -x ", 1);
+	found_equals = 0;
+	i = 0;
+	while (var[i])
+	{
+		if (var[i] == '=')
+		{
+			found_equals = 1;
+			ft_putchar_fd(var[i], 1);
+			ft_putchar_fd('"', 1);
+			value = &var[i + 1];
+			ft_putstr_fd(value, 1);
+			ft_putchar_fd('"', 1);
+			break ;
+		}
+		ft_putchar_fd(var[i], 1);
+		i++;
+	}
+	if (!found_equals)
+		ft_putchar_fd('\n', 1);
+}
+
+void	print_sorted_env(char **env)
+{
+	char	**sorted;
+	int		size;
+	int		i;
+
+	size = 0;
+	while (env[size])
+		size++;
+	sorted = dup_env_array(env, size);
+	if (!sorted)
+		return ;
+	sort_env_array(sorted, size);
+	i = -1;
+	while (sorted[++i])
+		print_env_var(sorted[i]);
+	free(sorted);
+}
+
+int	get_env_size(char **env)
+{
+	int	i;
+
+	if (!env)
+		return (0);
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
 }

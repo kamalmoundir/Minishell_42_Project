@@ -6,7 +6,7 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 01:23:23 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/06 01:30:39 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/23 00:51:21 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,37 @@ char	*find_command_path(char *cmd, char **env)
 	}
 	free_array(paths);
 	return (NULL);
+}
+
+int	execute_command(char **args, char **env)
+{
+	char	*cmd_path;
+	int		status;
+
+	if (!args || !args[0])
+		return (0);
+	args = skip_empty_args(args);
+	if (!args[0])
+		return (0);
+	if (args[0][0] == '/' || args[0][0] == '.')
+	{
+		status = check_file_errors(args[0]);
+		if (status)
+			return (status);
+		cmd_path = args[0];
+	}
+	else
+		cmd_path = find_command_path(args[0], env);
+	if (!cmd_path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(args[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		return (127);
+	}
+	status = handle_exec(cmd_path, args, env);
+	if (cmd_path != args[0])
+		free(cmd_path);
+	printf("\n");
+	return (status);
 }

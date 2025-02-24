@@ -6,59 +6,59 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:28:03 by kmoundir          #+#    #+#             */
-/*   Updated: 2025/01/29 16:38:23 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/23 00:20:01 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_flag_echo(char *str)
+static int	is_n_flag(char *str)
 {
 	int	i;
 
-	i = 0;
-	if (str[0] == '-' && str[1] == 'n')
-	{
-		i = 2;
-		while (str[i] == 'n')
-			i++;
-		if (str[i] == '\0')
-			return (1);
-	}
-	return (0);
+	if (!str || str[0] != '-' || str[1] != 'n')
+		return (0);
+	i = 2;
+	while (str[i] == 'n')
+		i++;
+	return (!str[i]);
+}
+
+static void	print_arg(char *str, int fd, int *first)
+{
+	if (!*first)
+		ft_putchar_fd(' ', fd);
+	if (!str)
+		return ;
+	if (str[0] == '$' && !str[1])
+		ft_putchar_fd('$', fd);
+	else
+		ft_putstr_fd(str, fd);
+	*first = 0;
 }
 
 int	echo(int ac, char **av, int fd)
 {
 	int	i;
+	int	n_flag;
+	int	first;
 
+	if (!av)
+		return (1);
 	i = 0;
-	if (ac == 0)
-		return (ft_putchar_fd('\n', fd), 0);
-	while (av[i] && (is_flag_echo(av[i]) || !ft_strcmp(av[i], "-")))
-		i++;
-	while (i < ac - 1)
+	n_flag = 0;
+	first = 1;
+	while (i < ac && av[i] && is_n_flag(av[i]))
 	{
-		ft_putstr_fd(av[i], fd);
-		if (av[i + 1])
-			ft_putstr_fd(" ", fd);
+		n_flag = 1;
 		i++;
 	}
-	if (i != ac)
-		ft_putstr_fd(av[i], fd);
-	if (!is_flag_echo(av[0]))
+	while (i < ac && av[i])
+	{
+		print_arg(av[i], fd, &first);
+		i++;
+	}
+	if (!n_flag)
 		ft_putchar_fd('\n', fd);
 	return (0);
 }
-/*
-int	main(int ac, char **av)
-{
-	if (ac >= 1)
-	{
-		echo(ac, (av + 1), 1);
-	}
-	else
-		ft_putchar_fd('\n', 1);
-	return (0);
-}
-*/

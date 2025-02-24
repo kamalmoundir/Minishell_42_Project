@@ -6,96 +6,53 @@
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:19 by rjaada            #+#    #+#             */
-/*   Updated: 2025/02/13 23:45:40 by rjaada           ###   ########.fr       */
+/*   Updated: 2025/02/23 00:24:42 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_unclosed_quotes(const char *input)
+void	update_quote_counts(char c, int *s_q, int *d_q)
 {
-	char	quote_type;
-
-	quote_type = 0;
-	while (*input)
-	{
-		if (*input == '\'' || *input == '\"')
-		{
-			if (quote_type == *input)
-				quote_type = 0;
-			else if (!quote_type)
-				quote_type = *input;
-		}
-		input++;
-	}
-	return (quote_type != 0);
+	if (c == '\'')
+		(*s_q)++;
+	else if (c == '\"')
+		(*d_q)++;
 }
 
-int	has_invalid_redirections(const char *input)
+static int	is_valid_filename_char(char c)
 {
-	int	s_q_count;
-	int	d_q_count;
-
-	s_q_count = 0;
-	d_q_count = 0;
-	while (*input)
-	{
-		update_quote_counts(*input, &s_q_count, &d_q_count);
-		if ((!(s_q_count % 2) && !(d_q_count % 2)) && (*input == '>'
-				|| *input == '<'))
-		{
-			if (is_invalid_operator(&input))
-				return (1);
-		}
-		else
-			input++;
-	}
-	return (0);
+	return (c != '\0' && !ft_isspace(c) && c != '<' && c != '>' && c != '|'
+		&& c != '\'' && c != '\"');
 }
 
-int	has_misplaced_operators(const char *input)
+static int	check_redirection_token(const char **input)
 {
-	int	expect_command_next;
-	int	s_q_count;
-	int	d_q_count;
+	char	current;
+	int		count;
 
-	s_q_count = 0;
-	d_q_count = 0;
-	expect_command_next = 0;
-	while (*input && ft_isspace(*input))
-		input++;
-	if (*input == '|' || *input == '&')
-		return (1);
-	while (*input)
+	current = **input;
+	count = 1;
+	while ((*input)[count] == current)
 	{
-		update_quote_counts(*input, &s_q_count, &d_q_count);
-		if (*input == '|' && !(s_q_count % 2) && !(d_q_count % 2))
-		{
-			if (expect_command_next)
-				return (1);
-			expect_command_next = 1;
-		}
-		else if (!ft_isspace(*input))
-			expect_command_next = 0;
-		input++;
+		if (count > 1)
+			return (0);
+		count++;
 	}
-	return (expect_command_next);
+	*input += count;
+	return (1);
 }
 
-int	has_logical_operators(const char *input)
+static int	skip_to_filename(const char **input)
 {
-	int	s_q_count;
-	int	d_q_count;
+	while (**input && ft_isspace(**input))
+		(*input)++;
+	return (is_valid_filename_char(**input));
+}
 
-	s_q_count = 0;
-	d_q_count = 0;
-	while (*input)
-	{
-		update_quote_counts(*input, &s_q_count, &d_q_count);
-		if (!(d_q_count % 2) && !(s_q_count % 2) && ((*input == '&' && *(input
-						+ 1) == '&') || (*input == '|' && *(input + 1) == '|')))
-			return (1);
-		input++;
-	}
-	return (0);
+int	check_redirection(const char **input)
+{
+	if (!check_redirection_token(input))
+		return (0);
+	return (skip_to_filename(input));
 }
